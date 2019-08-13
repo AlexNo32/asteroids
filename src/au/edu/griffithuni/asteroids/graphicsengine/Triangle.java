@@ -1,4 +1,4 @@
-package au.edu.griffithuni.asteroids.basicelements;
+package au.edu.griffithuni.asteroids.graphicsengine;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -19,8 +19,7 @@ import java.util.TreeSet;
 public class Triangle extends Pixel {
 
 	private Point pa, pb, pc; // vertex a, b, c
-	private Color borderColor, fillColor; // triangle color
-
+	
 	@SuppressWarnings("unused")
 	private int uBoundX; // upper boundary for x
 	@SuppressWarnings("unused")
@@ -42,15 +41,11 @@ public class Triangle extends Pixel {
 	 * @param font Integer: font size of triangle
 	 * @param showBorder Boolean: if true, show border, else opposite
 	 */
-	public Triangle(Point pa, Point pb, Point pc, Color borderColor, Color fillColor, int font, boolean showBorder) {
-		super(fillColor, font);
+	public Triangle(Point pa, Point pb, Point pc, Color c, int font) {
+		super(c, font);
 		this.pa = pa;
 		this.pb = pb;
 		this.pc = pc;
-		if(showBorder)
-			this.borderColor = borderColor;
-		else
-			this.borderColor = fillColor;
 		
 		List<Integer> xl = Arrays.asList(pa.x, pb.x, pc.x);
 		List<Integer> yl = Arrays.asList(pa.y, pb.y, pc.y);
@@ -68,9 +63,9 @@ public class Triangle extends Pixel {
 	}
 
 	private void drawBorder() {
-		triangle.addAll(new Line(pa, pb, borderColor, getFont()).getLine());
-		triangle.addAll(new Line(pc, pb, borderColor, getFont()).getLine());
-		triangle.addAll(new Line(pa, pc, borderColor, getFont()).getLine());
+		triangle.addAll(new Line(pa, pb, getColor(), getFont()).getLine());
+		triangle.addAll(new Line(pc, pb, getColor(), getFont()).getLine());
+		triangle.addAll(new Line(pa, pc, getColor(), getFont()).getLine());
 	}
 
 	
@@ -82,11 +77,12 @@ public class Triangle extends Pixel {
 
 		while ((l += getFont()) < uBoundY) {
 			TreeSet<Integer> gaps = border.get(l);
+			
 			int first = gaps.first();
 			int last = gaps.last();
 
 			while ((first += getFont()) < last) {
-				triangle.add(new Pixel(new Point(first, l), fillColor, getFont()));
+				triangle.add(new Pixel(new Point(first, l), getColor(), getFont()));
 			}
 		}
 

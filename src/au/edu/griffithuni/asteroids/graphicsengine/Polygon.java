@@ -1,4 +1,4 @@
-package au.edu.griffithuni.asteroids.basicelements;
+package au.edu.griffithuni.asteroids.graphicsengine;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -13,21 +13,16 @@ public class Polygon extends Pixel {
 
 	private ArrayList<Triangle> subTri = new ArrayList<Triangle>(); // sub-triangle container
 	private LinkedList<Vertex> vertex = new LinkedList<Vertex>(); // vertex container
-
-	private Color borderColor, fillColor; // polygon color
-	private boolean showTriBorder = false; // show the inside triangle border or not
 	
 	/**
 	 * constructor for Polygon
-	 * 
 	 * @param vt LinkedList<Point>: vertex list for Polygon
 	 * @param borderColor Color: border color
 	 * @param fillColor Color: polygon color
 	 * @param font Integer: font size of polygon
 	 */
-	public Polygon(LinkedList<Point> vt, Color borderColor, Color fillColor, int font) {
-		super(fillColor, font);
-		this.borderColor = borderColor;
+	public Polygon(LinkedList<Point> vt, Color c, int font) {
+		super(c, font);
 		// built vertex chain to assemble polygon
 		setPolygon(vt);
 		// decompose polygon into sub triangle
@@ -55,7 +50,7 @@ public class Polygon extends Pixel {
 				a = vertex.poll().getPos();
 				b = vertex.poll().getPos();
 				c = vertex.poll().getPos();
-				subTri.add(new Triangle(a, b, c, borderColor, fillColor, getFont(), showTriBorder));
+				subTri.add(new Triangle(a, b, c, getColor(), getFont()));
 
 				break;
 			}
@@ -76,7 +71,7 @@ public class Polygon extends Pixel {
 				}
 
 				if (va) {
-					subTri.add(new Triangle(p, l, r, borderColor, fillColor, getFont(), showTriBorder));
+					subTri.add(new Triangle(p, l, r, getColor(), getFont()));
 					update(l, r);
 				} else
 					vertex.addLast(v);
@@ -88,11 +83,17 @@ public class Polygon extends Pixel {
 
 	private void update(Point l, Point r) {
 		for (Vertex t : vertex) {
-			if (t.getPos() == l)
+			if (t.getPos() == l) {
 				t.setLeft(r);
-			if (t.getPos() == r)
+				t.updateConvex();
+			}
+			if (t.getPos() == r) {
 				t.setLeft(l);
+				t.updateConvex();
+			}
+				
 		}
+		
 	}
 
 	private HashSet<Pixel> getPolygon() {
@@ -131,7 +132,7 @@ public class Polygon extends Pixel {
 			this.pos = pos;
 			this.left = left;
 			this.right = right;
-			convex = shape();
+			updateConvex();
 		}
 
 		/* extimate the vertex is convex or concave */
@@ -139,6 +140,10 @@ public class Polygon extends Pixel {
 			return (right.x - left.x) * (pos.y - left.y) - (pos.x - left.x) * (right.y - left.y) > 0 ? false : true;
 		}
 
+		public void updateConvex() {
+			this.convex = shape();
+		}
+		
 		public Point getPos() {
 			return pos;
 		}

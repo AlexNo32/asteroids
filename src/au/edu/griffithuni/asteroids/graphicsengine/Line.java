@@ -1,4 +1,4 @@
-package au.edu.griffithuni.asteroids.basicelements;
+package au.edu.griffithuni.asteroids.graphicsengine;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -15,7 +15,6 @@ public class Line extends Pixel {
 
 	private Point start; // start point
 	private Point end; // end point
-	private Color color; // line color
 	private HashSet<Pixel> line;// pixels container
 
 	/**
@@ -32,7 +31,7 @@ public class Line extends Pixel {
 		this.end = e;
 		
 		line = new HashSet<Pixel>();
-		line.add(new Pixel(s, color, font));
+		line.add(new Pixel(s, getColor(), font));
 		
 		dda();
 	}
@@ -57,7 +56,7 @@ public class Line extends Pixel {
 		for (int i = 0; i < h; i++) {
 			x = x + delta_x;
 			y = y + delta_y;
-			line.add(new Pixel(new Point(round(x), round(y)), color, getFont()));
+			line.add(new Pixel(new Point(round(x), round(y)), getColor(), getFont()));
 		}
 	}
 

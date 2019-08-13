@@ -1,4 +1,4 @@
-package au.edu.griffithuni.asteroids.basicelements;
+package au.edu.griffithuni.asteroids.graphicsengine;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -24,7 +24,7 @@ public class Pixel {
 	 */
 	public Pixel(Color c, int font) {
 		this.font = font;
-		this.color = Color.BLACK;
+		this.color = c;
 	}
 
 	/**
