@@ -1,10 +1,13 @@
-package au.edu.griffithuni.asteroids.component;
+package au.edu.griffithuni.asteroids.ui;
+
+import static au.edu.griffithuni.asteroids.tools.Contents.FRAME_TITLE;
+import static au.edu.griffithuni.asteroids.tools.Contents.FRAME_WIDTH;
+import static au.edu.griffithuni.asteroids.tools.Contents.FRANE_HEIGHT;
 
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
-import static au.edu.griffithuni.asteroids.tools.Contents.*;
 
-public class AsterFrame extends JFrame implements IComponentBehavior {
+public class AsterFrame extends JFrame {
 
 	/**
 	 * 

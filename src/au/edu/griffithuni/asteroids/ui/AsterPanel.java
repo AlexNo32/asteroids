@@ -1,26 +1,34 @@
-package au.edu.griffithuni.asteroids.component;
+package au.edu.griffithuni.asteroids.ui;
 
-import java.awt.Color;
+import static au.edu.griffithuni.asteroids.tools.Contents.COLOR_1;
+import static au.edu.griffithuni.asteroids.tools.Contents.COLOR_2;
+
 import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import static au.edu.griffithuni.asteroids.tools.Contents.*;
+import java.util.ArrayList;
+
 import javax.swing.JPanel;
 
-public class AsterPanel extends JPanel implements IComponentBehavior, ActionListener{
+import au.edu.griffithuni.asteroids.component.IComponent;
+
+public class AsterPanel extends JPanel {
 	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
+	private ArrayList<IComponent> content = new ArrayList<IComponent>();
+
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		background(g);
+		
+		for(IComponent p: content)
+			p.show(g);
 		
 	}
 	
@@ -33,11 +41,9 @@ public class AsterPanel extends JPanel implements IComponentBehavior, ActionList
         g2d.setPaint(gp);
         g2d.fillRect(0, 0, w, h);
 	}
-	
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
 
+	public void setContent(ArrayList<IComponent> content) {
+		this.content = content;
+	}
+	
 }
