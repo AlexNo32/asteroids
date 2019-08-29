@@ -1,5 +1,7 @@
 package au.edu.griffithuni.asteroids.gamemanager;
 
+import static au.edu.griffithuni.asteroids.tools.ElementsSpecification.*;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
@@ -16,17 +18,16 @@ import au.edu.griffithuni.asteroids.ui.AsterPanel;
 
 public class GameUiManager implements ActionListener {
 
-	private static final int RESOLUTION = 20; // FPS, 20 per second
-
 	private AsterFrame gui; // game frame
 	private AsterPanel panel; // game panel
 
 	private SpaceShip j20; // spaceship
 	private List<Asteroid> asteroids; // list of asteroids
 	private List<Beam> beams; // beams or bullets
-
-	Timer timer;
-
+	
+	private Timer timer;
+	private boolean gameOn;
+	
 	private GameUiManager() {
 		initGui();
 		initComponents();
@@ -41,17 +42,23 @@ public class GameUiManager implements ActionListener {
 	}
 
 	private void initComponents() {
+		// add spaceship
+		j20 = new SpaceShip(this);
+		panel.getContent().add(j20);
+		// add asteroids
+		for(int i = 0; i < ASTEROID_NUMBRE; i++) {
+			asteroids.add(new Asteroid()); 
 
+		}
 	}
 
-	public void draw() {
+	public void gui() {
 		gui.start();
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		
-
+		panel.repaint();
 	}
 
 	/**
@@ -67,6 +74,10 @@ public class GameUiManager implements ActionListener {
 		timer.start();
 	}
 
+	private void pauseTimer() {
+		
+	}
+	
 	private static class SingletonHolder {
 		private static final GameUiManager INSTANCE = new GameUiManager();
 	}
@@ -80,40 +91,25 @@ public class GameUiManager implements ActionListener {
 		@Override
 		public void keyPressed(KeyEvent e) {
 			switch (e.getKeyCode()) {
-			/* move up */
-			case KeyEvent.VK_W:
-			case KeyEvent.VK_UP:
-				System.out.println("up");
-				break;
-			/* move left */
-			case KeyEvent.VK_A:
-			case KeyEvent.VK_LEFT:
-				System.out.println("left");
-				break;
-			/* move down */
-			case KeyEvent.VK_S:
-			case KeyEvent.VK_DOWN:
-				System.out.println("down");
-				break;
-			/* move right */
-			case KeyEvent.VK_D:
-			case KeyEvent.VK_RIGHT:
-				System.out.println("right");
-				break;
-			/* open fire */
-			case KeyEvent.VK_J:
-			case KeyEvent.VK_SPACE:
-				System.out.println("space");
-				break;
 			/* game start */
 			case KeyEvent.VK_F1:
 				startTimer(RESOLUTION);
 				break;
+				
 			/* game pause */
 			case KeyEvent.VK_F2:
-				System.out.println("pause");
+				pauseTimer();
 				break;
+				
+			default:
+				j20.keyPressed(e);
 			}
+
+		}
+
+		@Override
+		public void keyReleased(KeyEvent e) {
+			j20.keyReleased(e);
 		}
 
 	}

@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.LinkedList;
 
@@ -14,6 +15,7 @@ public class Polygon extends Pixel {
 	private ArrayList<Triangle> subTri = new ArrayList<Triangle>(); // sub-triangle container
 	private LinkedList<Vertex> vertex = new LinkedList<Vertex>(); // vertex container
 	
+	public Point[] points;
 	/**
 	 * constructor for Polygon
 	 * @param vt LinkedList<Point>: vertex list for Polygon
@@ -21,10 +23,11 @@ public class Polygon extends Pixel {
 	 * @param fillColor Color: polygon color
 	 * @param font Integer: font size of polygon
 	 */
-	public Polygon(LinkedList<Point> vt, Color c, int font) {
+	public Polygon(Point[] vt, Color c, int font) {
 		super(c, font);
+		this.points = vt;
 		// built vertex chain to assemble polygon
-		setPolygon(vt);
+		setPolygon(new LinkedList<Point>(Arrays.asList(vt)));
 		// decompose polygon into sub triangle
 		decompose();
 		
@@ -109,6 +112,14 @@ public class Polygon extends Pixel {
 	public void draw(Graphics g) {
 		for (final Pixel p : getPolygon())
 			p.draw(g);
+	}
+
+	public Point[] getPoints() {
+		return points;
+	}
+
+	public void setPoints(Point[] points) {
+		this.points = points;
 	}
 
 	/**

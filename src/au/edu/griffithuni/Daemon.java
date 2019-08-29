@@ -12,7 +12,7 @@ public class Daemon {
 
 	public void start() {
 		guiManager = GameUiManager.getInstance();
-		guiManager.draw();
+		guiManager.gui();
 	}
 
 	//entrance

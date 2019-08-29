@@ -1,7 +1,7 @@
 package au.edu.griffithuni.asteroids.ui;
 
-import static au.edu.griffithuni.asteroids.tools.Contents.COLOR_1;
-import static au.edu.griffithuni.asteroids.tools.Contents.COLOR_2;
+import static au.edu.griffithuni.asteroids.tools.ElementsSpecification.COLOR_1;
+import static au.edu.griffithuni.asteroids.tools.ElementsSpecification.COLOR_2;
 
 import java.awt.GradientPaint;
 import java.awt.Graphics;
@@ -25,8 +25,8 @@ public class AsterPanel extends JPanel {
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		background(g);
 		
+		background(g);
 		for(IComponent p: content)
 			p.show(g);
 		
@@ -40,6 +40,10 @@ public class AsterPanel extends JPanel {
         GradientPaint gp = new GradientPaint(0, 0, COLOR_1, 0, h, COLOR_2);
         g2d.setPaint(gp);
         g2d.fillRect(0, 0, w, h);
+	}
+
+	public ArrayList<IComponent> getContent() {
+		return content;
 	}
 
 	public void setContent(ArrayList<IComponent> content) {
