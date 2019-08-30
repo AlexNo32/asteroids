@@ -6,10 +6,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.Timer;
 
+import au.edu.griffithuni.asteroids.component.animation.Explosion;
 import au.edu.griffithuni.asteroids.component.implement.Asteroid;
 import au.edu.griffithuni.asteroids.component.implement.Beam;
 import au.edu.griffithuni.asteroids.component.implement.SpaceShip;
@@ -21,19 +23,20 @@ public class GameUiManager implements ActionListener {
 	private AsterFrame gui; // game frame
 	private AsterPanel panel; // game panel
 
-	private SpaceShip j20; // spaceship TODO initial
-	private List<Asteroid> asteroids; // list of asteroids
-	private List<Beam> beams; // beams or bullets
-	// TDOD explodes & threads
-	
+	private SpaceShip j20; // spaceship
+	private List<Asteroid> asteroids = new ArrayList<Asteroid>(); // list of asteroids
+	private List<Beam> beams = new ArrayList<Beam>(); // beams or bullets
+	private List<Explosion> explodes = new ArrayList<Explosion>(); // explosion animation
+
 	private Timer timer;
-	private boolean pause;
-	
+	private boolean pause = false;
+
 	private GameUiManager() {
 		initGui();
 		initComponents();
 	}
 
+	/* init gui */
 	private void initGui() {
 		panel = new AsterPanel();
 		gui = new AsterFrame();
@@ -41,14 +44,14 @@ public class GameUiManager implements ActionListener {
 		gui.addKeyListener(new GameKeyAdapter());
 	}
 
+	/* init game components */
 	private void initComponents() {
 		// add spaceship
 		j20 = new SpaceShip(this);
 		panel.getContent().add(j20);
 		// add asteroids
-		for(int i = 0; i < ASTEROID_NUMBRE; i++) {
-//			asteroids.add(new Asteroid()); 
-
+		for (int i = 0; i < ASTEROID_NUMBRE; i++) {
+			asteroids.add(new Asteroid()); 
 		}
 	}
 
@@ -62,7 +65,7 @@ public class GameUiManager implements ActionListener {
 	}
 
 	/**
-	 * Starts the animation
+	 * Starts the animation Key: F1
 	 */
 	private void startTimer(int resolution) {
 		if (timer != null) {
@@ -74,10 +77,21 @@ public class GameUiManager implements ActionListener {
 		timer.start();
 	}
 
+	/**
+	 * pause the game Key: F2
+	 */
 	private void pauseTimer() {
-		
+		if (timer != null) {
+			if (pause && !timer.isRunning()) {
+				timer.restart();
+				pause = false;
+			} else {
+				timer.stop();
+				pause = true;
+			}
+		}
 	}
-	
+
 	/* Singleton */
 	private static class SingletonHolder {
 		private static final GameUiManager INSTANCE = new GameUiManager();
@@ -97,12 +111,12 @@ public class GameUiManager implements ActionListener {
 			case KeyEvent.VK_F1:
 				startTimer(RESOLUTION);
 				break;
-				
+
 			/* game pause */
 			case KeyEvent.VK_F2:
 				pauseTimer();
 				break;
-				
+
 			default:
 				j20.keyPressed(e);
 			}
@@ -114,6 +128,30 @@ public class GameUiManager implements ActionListener {
 			j20.keyReleased(e);
 		}
 
+	}
+
+	public List<Asteroid> getAsteroids() {
+		return asteroids;
+	}
+
+	public void setAsteroids(List<Asteroid> asteroids) {
+		this.asteroids = asteroids;
+	}
+
+	public List<Beam> getBeams() {
+		return beams;
+	}
+
+	public void setBeams(List<Beam> beams) {
+		this.beams = beams;
+	}
+
+	public List<Explosion> getExplodes() {
+		return explodes;
+	}
+
+	public void setExplodes(List<Explosion> explodes) {
+		this.explodes = explodes;
 	}
 
 }
