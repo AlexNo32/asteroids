@@ -1,6 +1,5 @@
 package au.edu.griffithuni.asteroids.graphicsengine;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
@@ -14,37 +13,32 @@ import java.awt.Point;
 public class Pixel {
 
 	private Point point; // pixel position
-	private Color color;// Pixel color
 	private int font; // pixel font size
 
 	/**
 	 * basic object constructor
-	 * @param c pixel color
 	 * @param font pixel size
 	 */
-	public Pixel(Color c, int font) {
+	public Pixel(int font) {
 		this.font = font;
-		this.color = c;
 	}
 
 	/**
 	 * object constructor
 	 * @param p:    pixel location
-	 * @param c:    pixel color
 	 * @param font: pixel font size
 	 */
-	public Pixel(Point p, Color c, int font) {
-		this(c, font);
+	public Pixel(Point p, int font) {
+		this(font);
 		this.point = p;
 	}
 
 	/**
 	 * paint the actual pixel in certain color and font size
-	 * @param g
+	 * @param g {@link java.awt.Graphics}
 	 */
 	public void draw(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g.create();
-		g2.setColor(color);
 		g2.fillRect(point.x, point.y, font, font);
 	}
 
@@ -57,14 +51,6 @@ public class Pixel {
 	@Override
 	public int hashCode() {
 		return getPoint().hashCode();
-	}
-
-	public Color getColor() {
-		return color;
-	}
-
-	public void setColor(Color color) {
-		this.color = color;
 	}
 
 	public int getFont() {

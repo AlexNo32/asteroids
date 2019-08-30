@@ -1,6 +1,5 @@
 package au.edu.griffithuni.asteroids.graphicsengine;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.util.Arrays;
@@ -36,13 +35,10 @@ public class Triangle extends Pixel {
 	 * @param pa Point: vertex a
 	 * @param pb Point: vertex b
 	 * @param pc Point: vertex c
-	 * @param borderColor Color: border color
-	 * @param fillColor   Color: triangle color
 	 * @param font Integer: font size of triangle
-	 * @param showBorder Boolean: if true, show border, else opposite
 	 */
-	public Triangle(Point pa, Point pb, Point pc, Color c, int font) {
-		super(c, font);
+	public Triangle(Point pa, Point pb, Point pc, int font) {
+		super(font);
 		this.pa = pa;
 		this.pb = pb;
 		this.pc = pc;
@@ -63,12 +59,10 @@ public class Triangle extends Pixel {
 	}
 
 	private void drawBorder() {
-		triangle.addAll(new Line(pa, pb, getColor(), getFont()).getLine());
-		triangle.addAll(new Line(pc, pb, getColor(), getFont()).getLine());
-		triangle.addAll(new Line(pa, pc, getColor(), getFont()).getLine());
+		triangle.addAll(new Line(pa, pb, getFont()).getLine());
+		triangle.addAll(new Line(pc, pb, getFont()).getLine());
+		triangle.addAll(new Line(pa, pc, getFont()).getLine());
 	}
-
-	
 
 	/* line scaner method for fill the triangle*/
 	private void fillTriangleScaner() {
@@ -82,7 +76,7 @@ public class Triangle extends Pixel {
 			int last = gaps.last();
 
 			while ((first += getFont()) < last) {
-				triangle.add(new Pixel(new Point(first, l), getColor(), getFont()));
+				triangle.add(new Pixel(new Point(first, l), getFont()));
 			}
 		}
 

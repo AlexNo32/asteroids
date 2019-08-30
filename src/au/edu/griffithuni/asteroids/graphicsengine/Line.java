@@ -1,6 +1,5 @@
 package au.edu.griffithuni.asteroids.graphicsengine;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.util.HashSet;
@@ -15,24 +14,20 @@ public class Line extends Pixel {
 
 	private Point start; // start point
 	private Point end; // end point
-	private HashSet<Pixel> line;// pixels container
+	private HashSet<Pixel> line = new HashSet<Pixel>();// pixels container
 
 	/**
 	 * object constructor
-	 * @param s:    line start location
-	 * @param e:    line end location
+	 * @param s:    line start position
+	 * @param e:    line end position
 	 * @param font: line font size
-	 * @param c:    line color
-	 * 
 	 */
-	public Line(Point s, Point e, Color c, int font) {
-		super(c, font);
+	public Line(Point s, Point e, int font) {
+		super(font);
 		this.start = s;
 		this.end = e;
 		
-		line = new HashSet<Pixel>();
-		line.add(new Pixel(s, getColor(), font));
-		
+		line.add(new Pixel(s, font));
 		dda();
 	}
 
@@ -56,7 +51,7 @@ public class Line extends Pixel {
 		for (int i = 0; i < h; i++) {
 			x = x + delta_x;
 			y = y + delta_y;
-			line.add(new Pixel(new Point(round(x), round(y)), getColor(), getFont()));
+			line.add(new Pixel(new Point(round(x), round(y)), getFont()));
 		}
 	}
 

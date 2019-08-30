@@ -1,10 +1,8 @@
 package au.edu.griffithuni.asteroids.graphicsengine;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.LinkedList;
 
@@ -15,19 +13,15 @@ public class Polygon extends Pixel {
 	private ArrayList<Triangle> subTri = new ArrayList<Triangle>(); // sub-triangle container
 	private LinkedList<Vertex> vertex = new LinkedList<Vertex>(); // vertex container
 	
-	public Point[] points;
 	/**
 	 * constructor for Polygon
 	 * @param vt LinkedList<Point>: vertex list for Polygon
-	 * @param borderColor Color: border color
-	 * @param fillColor Color: polygon color
 	 * @param font Integer: font size of polygon
 	 */
-	public Polygon(Point[] vt, Color c, int font) {
-		super(c, font);
-		this.points = vt;
+	public Polygon(LinkedList<Point> vt, int font) {
+		super(font);
 		// built vertex chain to assemble polygon
-		setPolygon(new LinkedList<Point>(Arrays.asList(vt)));
+		setPolygon(vt);
 		// decompose polygon into sub triangle
 		decompose();
 		
@@ -53,7 +47,7 @@ public class Polygon extends Pixel {
 				a = vertex.poll().getPos();
 				b = vertex.poll().getPos();
 				c = vertex.poll().getPos();
-				subTri.add(new Triangle(a, b, c, getColor(), getFont()));
+				subTri.add(new Triangle(a, b, c, getFont()));
 
 				break;
 			}
@@ -74,7 +68,7 @@ public class Polygon extends Pixel {
 				}
 
 				if (va) {
-					subTri.add(new Triangle(p, l, r, getColor(), getFont()));
+					subTri.add(new Triangle(p, l, r, getFont()));
 					update(l, r);
 				} else
 					vertex.addLast(v);
@@ -112,14 +106,6 @@ public class Polygon extends Pixel {
 	public void draw(Graphics g) {
 		for (final Pixel p : getPolygon())
 			p.draw(g);
-	}
-
-	public Point[] getPoints() {
-		return points;
-	}
-
-	public void setPoints(Point[] points) {
-		this.points = points;
 	}
 
 	/**
