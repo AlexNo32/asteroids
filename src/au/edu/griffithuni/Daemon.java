@@ -1,6 +1,6 @@
 package au.edu.griffithuni;
 
-import au.edu.griffithuni.asteroids.gamemanager.GameUiManager;
+import au.edu.griffithuni.asteroids.component.GameUiManager;
 
 public class Daemon {
 

@@ -4,8 +4,8 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
 
+import au.edu.griffithuni.asteroids.component.GameUiManager;
 import au.edu.griffithuni.asteroids.component.IComponent;
-import au.edu.griffithuni.asteroids.gamemanager.GameUiManager;
 import au.edu.griffithuni.asteroids.graphicsengine.Polygon;
 
 public class Asteroid implements IComponent{

@@ -1,9 +1,30 @@
 package au.edu.griffithuni.asteroids.tools;
 
+import java.awt.Color;
 import java.awt.Point;
+import java.util.Random;
 
 public class Tools {
 
+	private static Random random = new Random();
+	
+	/**
+	 * {@link java.util.Random.nextInt(int bound)}
+	 * @param bound boundary, [0, bound)
+	 * @return
+	 */
+	public static int randomInt(int bound) {
+		return random.nextInt(bound);
+	}
+	
+	/**
+	 * return a random color
+	 * @return
+	 */
+	public static Color randomColor() {
+		return new Color(randomInt(256), randomInt(256), randomInt(256));
+	}
+	
 	public static int orientation(Point p, Point ls, Point le){
 		int pt = (p.x - ls.x) * (le.y - ls.y) - (p.y - ls.y) * (le.x - ls.x);
 		if(pt > 0) return 1;
@@ -27,16 +48,5 @@ public class Tools {
 		return Math.sqrt(Math.pow((b.getX() - a.getX()) ,2.0) + Math.pow((b.getY() - a.getY()) ,2));
 	}
 
-	 public static int[][] multiplyMatrices(int[][] firstMatrix, int[][] secondMatrix, int r1, int c1, int c2) {
-	        int[][] product = new int[r1][c2];
-	        for(int i = 0; i < r1; i++) {
-	            for (int j = 0; j < c2; j++) {
-	                for (int k = 0; k < c1; k++) {
-	                    product[i][j] += firstMatrix[i][k] * secondMatrix[k][j];
-	                }
-	            }
-	        }
-	        return product;
-	    }
 	
 }

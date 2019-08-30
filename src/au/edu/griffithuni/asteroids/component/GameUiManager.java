@@ -1,4 +1,4 @@
-package au.edu.griffithuni.asteroids.gamemanager;
+package au.edu.griffithuni.asteroids.component;
 
 import static au.edu.griffithuni.asteroids.tools.ElementsSpecification.*;
 
@@ -47,7 +47,7 @@ public class GameUiManager implements ActionListener {
 		panel.getContent().add(j20);
 		// add asteroids
 		for(int i = 0; i < ASTEROID_NUMBRE; i++) {
-			asteroids.add(new Asteroid()); 
+//			asteroids.add(new Asteroid()); 
 
 		}
 	}
