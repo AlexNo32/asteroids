@@ -21,12 +21,13 @@ public class GameUiManager implements ActionListener {
 	private AsterFrame gui; // game frame
 	private AsterPanel panel; // game panel
 
-	private SpaceShip j20; // spaceship
+	private SpaceShip j20; // spaceship TODO initial
 	private List<Asteroid> asteroids; // list of asteroids
 	private List<Beam> beams; // beams or bullets
+	// TDOD explodes & threads
 	
 	private Timer timer;
-	private boolean gameOn;
+	private boolean pause;
 	
 	private GameUiManager() {
 		initGui();
@@ -34,9 +35,8 @@ public class GameUiManager implements ActionListener {
 	}
 
 	private void initGui() {
-		gui = new AsterFrame();
 		panel = new AsterPanel();
-
+		gui = new AsterFrame();
 		gui.getContentPane().add(panel);
 		gui.addKeyListener(new GameKeyAdapter());
 	}
@@ -78,6 +78,7 @@ public class GameUiManager implements ActionListener {
 		
 	}
 	
+	/* Singleton */
 	private static class SingletonHolder {
 		private static final GameUiManager INSTANCE = new GameUiManager();
 	}
@@ -86,6 +87,7 @@ public class GameUiManager implements ActionListener {
 		return SingletonHolder.INSTANCE;
 	}
 
+	/* Key listener */
 	private class GameKeyAdapter extends KeyAdapter {
 
 		@Override

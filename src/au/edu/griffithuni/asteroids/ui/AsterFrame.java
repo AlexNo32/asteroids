@@ -7,6 +7,11 @@ import static au.edu.griffithuni.asteroids.tools.ElementsSpecification.FRANE_HEI
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
+/**
+ * Gui frame work 
+ * @author Firklaag_ins
+ *
+ */
 public class AsterFrame extends JFrame {
 
 	/**
@@ -14,6 +19,7 @@ public class AsterFrame extends JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	/* draw the frame */
 	public void start() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle(FRAME_TITLE);

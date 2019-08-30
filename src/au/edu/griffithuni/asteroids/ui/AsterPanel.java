@@ -13,13 +13,16 @@ import javax.swing.JPanel;
 
 import au.edu.griffithuni.asteroids.component.IComponent;
 
+/**
+ * Gui canvas
+ * @author Firklaag_ins
+ *
+ */
 public class AsterPanel extends JPanel {
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
+	/* component list */
 	private ArrayList<IComponent> content = new ArrayList<IComponent>();
 
 	@Override
@@ -32,6 +35,7 @@ public class AsterPanel extends JPanel {
 		
 	}
 	
+	/* set up the background */
 	private void background(Graphics g) {
 		Graphics2D g2d = (Graphics2D) g;
         g2d.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
