@@ -1,9 +1,13 @@
 package au.edu.griffithuni.asteroids.component.implement;
 
+import static au.edu.griffithuni.asteroids.graphicsengine.Matrix2DTransfer.mappingAroundX;
+import static au.edu.griffithuni.asteroids.graphicsengine.Matrix2DTransfer.mappingAroundY;
 import static au.edu.griffithuni.asteroids.tools.ElementsSpecification.ASTEROID_SIZE;
 import static au.edu.griffithuni.asteroids.tools.ElementsSpecification.ASTEROID_VECTOR;
 import static au.edu.griffithuni.asteroids.tools.ElementsSpecification.AST_SPEED_LIMIT;
 import static au.edu.griffithuni.asteroids.tools.ElementsSpecification.AST_SPEED_MAX;
+import static au.edu.griffithuni.asteroids.tools.ElementsSpecification.FRAME_WIDTH;
+import static au.edu.griffithuni.asteroids.tools.ElementsSpecification.FRANE_HEIGHT;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -34,6 +38,7 @@ public class Asteroid extends Element implements IComponent{
 		setShape(s);
 		// genreate vector
 		this.vector = new Point(Tools.randomInt(AST_SPEED_LIMIT, AST_SPEED_MAX), Tools.randomInt(AST_SPEED_LIMIT, AST_SPEED_MAX));
+//		this.vector = new Point(1, 3);
 		// position init
 		//TODO
 	}
@@ -43,7 +48,6 @@ public class Asteroid extends Element implements IComponent{
 		if(live) {
 			move();
 			
-//			System.out.println(x + " : " + y);
 			
 			Point[] scp = Arrays.copyOf(shape, shape.length); 
 			gem.fillPolygon(x, y, 0, scp[0], scp, Color.RED, g);
@@ -53,8 +57,7 @@ public class Asteroid extends Element implements IComponent{
 	
 	@Override
 	public Rectangle getRect() {
-		// TODO Auto-generated method stub
-		return null;
+		return new Rectangle(x, y, ASTEROID_SIZE, ASTEROID_SIZE);
 	}
 	
 	@Override
@@ -64,6 +67,11 @@ public class Asteroid extends Element implements IComponent{
 		
 		x += vector.x;
 		y += vector.y;
+		
+		if(x < 0 || x > FRAME_WIDTH - ASTEROID_SIZE)
+			vector = mappingAroundY(vector);
+		if(y < 0 || y > FRANE_HEIGHT - ASTEROID_SIZE)
+			vector = mappingAroundX(vector);
 	}
 	
 	private LinkedList<Point> Astgenerator(int size, int vertex) {

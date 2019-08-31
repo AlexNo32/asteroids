@@ -20,7 +20,7 @@ public class GameUiManager implements ActionListener {
 
 	private AsterFrame gui; // game frame
 	private AsterPanel panel; // game panel
-	private SpaceShip j20;
+	private SpaceShip j20; //Player
 	
 	private Timer timer;
 	private boolean pause = false;
@@ -51,6 +51,10 @@ public class GameUiManager implements ActionListener {
 		
 	}
 
+	/**
+	 * add component to the canvas
+	 * @param comp component on canvas
+	 */
 	public void add(IComponent comp) {
 		if(comp instanceof SpaceShip)
 			panel.setJ20(comp);
@@ -60,6 +64,10 @@ public class GameUiManager implements ActionListener {
 			panel.getBeamsList().add(comp);
 	}
 	
+	/**
+	 * remove component from the canvas
+	 * @param comp component on canvas
+	 */
 	public void remove(IComponent comp) {
 		if(comp instanceof Asteroid)
 			panel.getAsteroidsList().remove(comp);
