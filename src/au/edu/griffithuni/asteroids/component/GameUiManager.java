@@ -1,6 +1,7 @@
 package au.edu.griffithuni.asteroids.component;
 
 import static au.edu.griffithuni.asteroids.tools.ElementsSpecification.ASTEROID_NUMBRE;
+import static au.edu.griffithuni.asteroids.tools.ElementsSpecification.ASTEROID_SIZE;
 import static au.edu.griffithuni.asteroids.tools.ElementsSpecification.RESOLUTION;
 
 import java.awt.event.ActionEvent;
@@ -20,8 +21,8 @@ public class GameUiManager implements ActionListener {
 
 	private AsterFrame gui; // game frame
 	private AsterPanel panel; // game panel
-	private SpaceShip j20; //Player
-	
+	private SpaceShip j20; // Player
+
 	private Timer timer;
 	private boolean pause = false;
 
@@ -44,37 +45,44 @@ public class GameUiManager implements ActionListener {
 		j20 = new SpaceShip(this);
 		add(j20);
 		
-		// add asteroids
+		attackWave();
+	}
+
+	/* generate a attack wave */
+	public void attackWave() {
+		int x = 0;
 		for (int i = 0; i < ASTEROID_NUMBRE; i++) {
-			add(new Asteroid(this)); 
+			add(new Asteroid(x, 0, this));
+			x += ASTEROID_SIZE;
 		}
-		
 	}
 
 	/**
 	 * add component to the canvas
+	 * 
 	 * @param comp component on canvas
 	 */
 	public void add(IComponent comp) {
-		if(comp instanceof SpaceShip)
+		if (comp instanceof SpaceShip)
 			panel.setJ20(comp);
-		else if(comp instanceof Asteroid)
+		else if (comp instanceof Asteroid)
 			panel.getAsteroidsList().add(comp);
-		else if(comp instanceof Beam)
+		else if (comp instanceof Beam)
 			panel.getBeamsList().add(comp);
 	}
-	
+
 	/**
 	 * remove component from the canvas
+	 * 
 	 * @param comp component on canvas
 	 */
 	public void remove(IComponent comp) {
-		if(comp instanceof Asteroid)
+		if (comp instanceof Asteroid)
 			panel.getAsteroidsList().remove(comp);
-		else if(comp instanceof Beam)
+		else if (comp instanceof Beam)
 			panel.getBeamsList().remove(comp);
 	}
-	
+
 	public void gui() {
 		gui.start();
 	}

@@ -36,6 +36,7 @@ public class AsterPanel extends JPanel {
 		background(g);
 		
 		j20.show(g);
+		j20.strike(asteroids);
 		
 		for(int i = 0; i < asteroids.size(); i++) {
 			IComponent as = asteroids.get(i);
@@ -43,8 +44,9 @@ public class AsterPanel extends JPanel {
 		}
 		
 		for(int i = 0; i < beams.size(); i++) {
-			IComponent bb = beams.get(i);
+			Beam bb = (Beam)beams.get(i);
 			bb.show(g);
+			bb.strike(asteroids);
 		}
 			
 	}

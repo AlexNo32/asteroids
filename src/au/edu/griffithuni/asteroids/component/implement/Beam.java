@@ -9,11 +9,13 @@ import static au.edu.griffithuni.asteroids.tools.ElementsSpecification.FRANE_HEI
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.util.ArrayList;
 
 import au.edu.griffithuni.asteroids.component.Element;
 import au.edu.griffithuni.asteroids.component.GameUiManager;
 import au.edu.griffithuni.asteroids.component.IComponent;
 import au.edu.griffithuni.asteroids.tools.ElementsSpecification.Direction;
+import au.edu.griffithuni.asteroids.tools.Tools;
 
 public class Beam extends Element implements IComponent{
 	
@@ -72,8 +74,16 @@ public class Beam extends Element implements IComponent{
 			this.live = false;
 	}
 	
-	private void engage() {
-		
+	public void strike(ArrayList<IComponent> asteroids) {
+		for(int i = 0; i < asteroids.size(); i++) {
+			IComponent ast = asteroids.get(i);
+			if(this.getRect().intersects(ast.getRect())) {
+				Tools.audioEffect();
+				this.live = false;
+				gum.remove(this);
+				gum.remove(ast);
+			}
+		}
 	}
 	
 	@Override

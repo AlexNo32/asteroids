@@ -13,6 +13,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
@@ -26,8 +27,10 @@ public class Asteroid extends Element implements IComponent{
 
 	private Point vector;
 	
-	public Asteroid(GameUiManager gum) {
+	public Asteroid(int x, int y, GameUiManager gum) {
 		this.gum = gum;
+		this.x = x;
+		this.y = y;
 		init();
 	}
 	
@@ -57,7 +60,7 @@ public class Asteroid extends Element implements IComponent{
 	
 	@Override
 	public Rectangle getRect() {
-		return new Rectangle(x, y, ASTEROID_SIZE, ASTEROID_SIZE);
+		return new Rectangle(x, y, (int)(ASTEROID_SIZE * 0.9), (int)(ASTEROID_SIZE * 0.9));
 	}
 	
 	@Override
@@ -127,5 +130,10 @@ public class Asteroid extends Element implements IComponent{
 			else if (r < 0)
 				right.add(p);
 		}
+	}
+
+	@Override
+	public void strike(ArrayList<IComponent> asteroids) {
+		
 	}
 }

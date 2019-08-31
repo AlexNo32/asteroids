@@ -20,6 +20,7 @@ import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import au.edu.griffithuni.asteroids.component.Element;
@@ -31,6 +32,7 @@ public class SpaceShip extends Element implements IComponent {
 	
 	private Point headPoint;
 	private Direction headDirection;
+	private int HP;
 	
 	public SpaceShip(GameUiManager gum) {
 		this.gum = gum;
@@ -44,6 +46,7 @@ public class SpaceShip extends Element implements IComponent {
 
 		radian = 0f;
 		direction = STOP;
+		HP = 2;
 		setShape(J20_SHAPE);
 		this.headPoint = shape[0];
 		this.headDirection = UP;
@@ -117,6 +120,10 @@ public class SpaceShip extends Element implements IComponent {
 			x = prev_x;
 			y = prev_y;
 		}
+	}
+	
+	public void strike(ArrayList<IComponent> asteroids) {
+		
 	}
 	
 	public void keyPressed(KeyEvent e) {

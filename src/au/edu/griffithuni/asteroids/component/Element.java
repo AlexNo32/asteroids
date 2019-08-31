@@ -20,8 +20,6 @@ public abstract class Element implements IComponent{
 	protected Direction direction;
 	
 	public abstract void move();
-	
-	public abstract Rectangle getRect();
 
 	public Point[] getShape() {
 		return shape;
