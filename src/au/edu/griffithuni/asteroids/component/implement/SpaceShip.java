@@ -1,11 +1,10 @@
 package au.edu.griffithuni.asteroids.component.implement;
 
-import static au.edu.griffithuni.asteroids.tools.ElementsSpecification.FONT;
+import static au.edu.griffithuni.asteroids.tools.ElementsSpecification.BOUNDARY;
 import static au.edu.griffithuni.asteroids.tools.ElementsSpecification.FRAME_WIDTH;
 import static au.edu.griffithuni.asteroids.tools.ElementsSpecification.FRANE_HEIGHT;
 import static au.edu.griffithuni.asteroids.tools.ElementsSpecification.J20_PAINT;
 import static au.edu.griffithuni.asteroids.tools.ElementsSpecification.J20_SHAPE;
-import static au.edu.griffithuni.asteroids.tools.ElementsSpecification.SHAPE_SIZE;
 import static au.edu.griffithuni.asteroids.tools.ElementsSpecification.SPEEDS;
 import static au.edu.griffithuni.asteroids.tools.ElementsSpecification.Direction.DOWN;
 import static au.edu.griffithuni.asteroids.tools.ElementsSpecification.Direction.DOWNLEFT;
@@ -19,17 +18,20 @@ import static au.edu.griffithuni.asteroids.tools.ElementsSpecification.Direction
 
 import java.awt.Graphics;
 import java.awt.Point;
+import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
+import java.util.Arrays;
 
 import au.edu.griffithuni.asteroids.component.Element;
 import au.edu.griffithuni.asteroids.component.GameUiManager;
 import au.edu.griffithuni.asteroids.component.IComponent;
-import au.edu.griffithuni.asteroids.graphicsengine.Matrix2DTransfer;
-import au.edu.griffithuni.asteroids.graphicsengine.Polygon;
 import au.edu.griffithuni.asteroids.tools.ElementsSpecification.Direction;
 
 public class SpaceShip extends Element implements IComponent {
-
+	
+	private Point headPoint;
+	private Direction headDirection;
+	
 	public SpaceShip(GameUiManager gum) {
 		this.gum = gum;
 		initial();
@@ -37,53 +39,86 @@ public class SpaceShip extends Element implements IComponent {
 
 	/* draw spaceship in initial place */
 	private void initial() {
-		
+		x = prev_x = FRAME_WIDTH / 2 - 25;
+		y = prev_y = FRANE_HEIGHT * 3 / 4;
 
-//		Point[] shape = J20_SHAPE;
-//		x = FRAME_WIDTH / 2 - 25;
-//		y = FRANE_HEIGHT * 3 / 4;
-//
-//		for (int i = 0; i < shape.length; i++)
-//			shape[i] = Matrix2DTransfer.translation(shape[i], new Point(x, y));
-//
-//		block = new Polygon(shape, J20_PAINT, FONT);
+		radian = 0f;
+		direction = STOP;
+		setShape(J20_SHAPE);
+		this.headPoint = shape[0];
+		this.headDirection = UP;
 	}
 
 	@Override
 	public void show(Graphics g) {
 		if (live) {
-//			Point[] _pos = block.getPoints();
-//
-//			move();
-//			Point v = new Point(x - prev_x, y - prev_y);
-//
-//			//veer();
-////			if (turn) {
-////				System.out.println(_pos[0]);
-////				
-////				/* rotate */
-////				for (int i = 0; i < _pos.length; i++)
-////					_pos[i] = Matrix2DTransfer.rotate(_pos[i], radian);
-////				turn = false;
-////				
-////				System.out.println(_pos[0]);
-////			}
-//
-//			/* translation */
-//			for (int i = 0; i < _pos.length; i++)
-//				_pos[i] = Matrix2DTransfer.translation(_pos[i], v);
-//
-//			block = new Polygon(_pos, J20_PAINT, FONT);
-//			block.draw(g);
+			move();
+			Point[] scp = Arrays.copyOf(shape, shape.length); 
+			Point[] nscp = gem.fillPolygon(x, y, radian, scp[0], scp, J20_PAINT, g);
+			headPoint = nscp[0];
 		}
 	}
 
+	@Override
+	public Rectangle getRect() {
+		return new Rectangle(x, y, BOUNDARY, BOUNDARY);
+	}
 	
-
 	public void fire() {
-
+		gum.add(new Beam(gum, headPoint, headDirection));
 	}
 
+	public void move() {
+		prev_x = x;
+		prev_y = y;
+		switch (direction) {
+		case UP:
+			y -= SPEEDS;
+			radian = 0f;
+			break;
+		case DOWN:
+			y += SPEEDS;
+			radian = 180f;
+			break;
+		case LEFT:
+			x -= SPEEDS;
+			radian = 270f;
+			break;
+		case RIGHT:
+			x += SPEEDS;
+			radian = 90f;
+			break;
+		case UPLEFT:
+			x -= SPEEDS;
+			y -= SPEEDS;
+			radian = 315f;
+			break;
+		case UPRIGHT:
+			x += SPEEDS;
+			y -= SPEEDS;
+			radian = 45f;
+			break;
+		case DOWNLEFT:
+			x -= SPEEDS;
+			y += SPEEDS;
+			radian = 225f;
+			break;
+		case DOWNRIGHT:
+			x += SPEEDS;
+			y += SPEEDS;
+			radian = 135f;
+			break;
+		default:
+			break;
+		}
+		if (direction != STOP)
+			headDirection = direction;
+		if (x < 0 || y < BOUNDARY || x > FRAME_WIDTH - BOUNDARY || y > FRANE_HEIGHT - BOUNDARY) {
+			x = prev_x;
+			y = prev_y;
+		}
+	}
+	
 	public void keyPressed(KeyEvent e) {
 		switch (e.getKeyCode()) {
 		/* move up */

@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import javax.swing.JPanel;
 
 import au.edu.griffithuni.asteroids.component.IComponent;
+import au.edu.griffithuni.asteroids.component.implement.Beam;
 
 /**
  * Gui canvas
@@ -21,18 +22,31 @@ import au.edu.griffithuni.asteroids.component.IComponent;
 public class AsterPanel extends JPanel {
 	
 	private static final long serialVersionUID = 1L;
-
-	/* component list */
-	private ArrayList<IComponent> content = new ArrayList<IComponent>();
-
+	/* Spaceship */
+	private IComponent j20;
+	/* asteroids list */
+	private ArrayList<IComponent> asteroids = new ArrayList<IComponent>();
+	/* beam list */
+	private ArrayList<IComponent> beams = new ArrayList<IComponent>();
+	
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		
 		background(g);
-		for(IComponent p: content)
-			p.show(g);
 		
+		j20.show(g);
+		
+		for(int i = 0; i < asteroids.size(); i++) {
+			IComponent as = asteroids.get(i);
+			as.show(g);
+		}
+		
+		for(int i = 0; i < beams.size(); i++) {
+			IComponent bb = beams.get(i);
+			bb.show(g);
+		}
+			
 	}
 	
 	/* set up the background */
@@ -46,12 +60,28 @@ public class AsterPanel extends JPanel {
         g2d.fillRect(0, 0, w, h);
 	}
 
-	public ArrayList<IComponent> getContent() {
-		return content;
+	public IComponent getJ20() {
+		return j20;
 	}
 
-	public void setContent(ArrayList<IComponent> content) {
-		this.content = content;
+	public void setJ20(IComponent j20) {
+		this.j20 = j20;
 	}
-	
+
+	public ArrayList<IComponent> getAsteroidsList() {
+		return asteroids;
+	}
+
+	public void setAsteroids(ArrayList<IComponent> asteroids) {
+		this.asteroids = asteroids;
+	}
+
+	public ArrayList<IComponent> getBeamsList() {
+		return beams;
+	}
+
+	public void setBeams(ArrayList<IComponent> beams) {
+		this.beams = beams;
+	}
+
 }

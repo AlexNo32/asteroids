@@ -11,10 +11,20 @@ public class Tools {
 	/**
 	 * {@link java.util.Random.nextInt(int bound)}
 	 * @param bound boundary, [0, bound)
-	 * @return
+	 * @return random int
 	 */
 	public static int randomInt(int bound) {
 		return random.nextInt(bound);
+	}
+	
+	/**
+	 * {@link java.util.Random.nextInt(int bound)}
+	 * @param lowerBound lower bound
+	 * @param upperBound upper bound
+	 * @return random int
+	 */
+	public static int randomInt(int lowerBound, int upperBound) {
+		return randomInt(upperBound) - randomInt(lowerBound);
 	}
 	
 	/**

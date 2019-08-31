@@ -65,9 +65,15 @@ public class Matrix2DTransfer {
 	}
 	
 	private static float[][] rotationMatrices(float theta){
-		double cos = Math.abs(Math.cos((Math.PI * theta) / 180));
-		double sin = Math.abs(Math.sin((Math.PI * theta) / 180));
+		double cos = Math.cos((Math.PI * theta) / 180);
+		double sin = Math.sin((Math.PI * theta) / 180);
 		return new float[][] {{(float)cos, (float)-sin, 0}, {(float)sin, (float)cos, 0}, {0, 0, 1}};
 	}
+	
+//	private static float[][] rotationMatrices(float theta){
+//		double cos = Math.abs(Math.cos((Math.PI * theta) / 180));
+//		double sin = Math.abs(Math.sin((Math.PI * theta) / 180));
+//		return new float[][] {{(float)cos, (float)-sin, 0}, {(float)sin, (float)cos, 0}, {0, 0, 1}};
+//	}
 	
 }

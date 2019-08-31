@@ -4,14 +4,13 @@ import au.edu.griffithuni.asteroids.component.GameUiManager;
 
 public class Daemon {
 
-	private GameUiManager guiManager;
+	private GameUiManager guiManager = GameUiManager.getInstance();
 
 	public Daemon() {
 		//do nothing
 	}
 
 	public void start() {
-		guiManager = GameUiManager.getInstance();
 		guiManager.gui();
 	}
 

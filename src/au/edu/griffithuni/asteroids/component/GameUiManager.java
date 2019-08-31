@@ -1,17 +1,15 @@
 package au.edu.griffithuni.asteroids.component;
 
-import static au.edu.griffithuni.asteroids.tools.ElementsSpecification.*;
+import static au.edu.griffithuni.asteroids.tools.ElementsSpecification.ASTEROID_NUMBRE;
+import static au.edu.griffithuni.asteroids.tools.ElementsSpecification.RESOLUTION;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.swing.Timer;
 
-import au.edu.griffithuni.asteroids.component.animation.Explosion;
 import au.edu.griffithuni.asteroids.component.implement.Asteroid;
 import au.edu.griffithuni.asteroids.component.implement.Beam;
 import au.edu.griffithuni.asteroids.component.implement.SpaceShip;
@@ -22,12 +20,8 @@ public class GameUiManager implements ActionListener {
 
 	private AsterFrame gui; // game frame
 	private AsterPanel panel; // game panel
-
-	private SpaceShip j20; // spaceship
-	private List<Asteroid> asteroids = new ArrayList<Asteroid>(); // list of asteroids
-	private List<Beam> beams = new ArrayList<Beam>(); // beams or bullets
-	private List<Explosion> explodes = new ArrayList<Explosion>(); // explosion animation
-
+	private SpaceShip j20;
+	
 	private Timer timer;
 	private boolean pause = false;
 
@@ -48,13 +42,31 @@ public class GameUiManager implements ActionListener {
 	private void initComponents() {
 		// add spaceship
 		j20 = new SpaceShip(this);
-		panel.getContent().add(j20);
+		add(j20);
+		
 		// add asteroids
 		for (int i = 0; i < ASTEROID_NUMBRE; i++) {
-			asteroids.add(new Asteroid()); 
+			add(new Asteroid(this)); 
 		}
+		
 	}
 
+	public void add(IComponent comp) {
+		if(comp instanceof SpaceShip)
+			panel.setJ20(comp);
+		else if(comp instanceof Asteroid)
+			panel.getAsteroidsList().add(comp);
+		else if(comp instanceof Beam)
+			panel.getBeamsList().add(comp);
+	}
+	
+	public void remove(IComponent comp) {
+		if(comp instanceof Asteroid)
+			panel.getAsteroidsList().remove(comp);
+		else if(comp instanceof Beam)
+			panel.getBeamsList().remove(comp);
+	}
+	
 	public void gui() {
 		gui.start();
 	}
@@ -129,29 +141,4 @@ public class GameUiManager implements ActionListener {
 		}
 
 	}
-
-	public List<Asteroid> getAsteroids() {
-		return asteroids;
-	}
-
-	public void setAsteroids(List<Asteroid> asteroids) {
-		this.asteroids = asteroids;
-	}
-
-	public List<Beam> getBeams() {
-		return beams;
-	}
-
-	public void setBeams(List<Beam> beams) {
-		this.beams = beams;
-	}
-
-	public List<Explosion> getExplodes() {
-		return explodes;
-	}
-
-	public void setExplodes(List<Explosion> explodes) {
-		this.explodes = explodes;
-	}
-
 }
