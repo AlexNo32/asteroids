@@ -16,20 +16,25 @@ import au.edu.griffithuni.asteroids.component.GameUiManager;
 import au.edu.griffithuni.asteroids.component.IComponent;
 import au.edu.griffithuni.asteroids.tools.ElementsSpecification.Direction;
 
-public class Beam extends Element implements IComponent{
-	
+/**
+ * Spaceship bullet
+ * @author Firklaag_ins
+ *
+ */
+public class Beam extends Element implements IComponent {
+
 	public Beam(GameUiManager gum, Point startPos, Direction dir) {
 		this.gum = gum;
 		this.x = startPos.x;
 		this.y = startPos.y;
 		direction = dir;
-	} 
-	
+	}
+
 	@Override
 	public void show(Graphics g) {
-		if(!live) {
+		if (!live) {
 			gum.remove(this);
-			return ;
+			return;
 		}
 		gem.drawPixel(x, y, BEAM_SIZE, BEAM_COLOR, g);
 		move();
@@ -72,18 +77,23 @@ public class Beam extends Element implements IComponent{
 		if (x < 0 || y < 0 || x > FRAME_WIDTH || y > FRANE_HEIGHT)
 			this.live = false;
 	}
-	
+
 	public void strike(ArrayList<IComponent> asteroids) {
-		for(int i = 0; i < asteroids.size(); i++) {
+		for (int i = 0; i < asteroids.size(); i++) {
 			IComponent ast = asteroids.get(i);
-			if(this.getRect().intersects(ast.getRect())) {
-				gum.setScore(gum.getScore() + 1);
+			if (this.getRect().intersects(ast.getRect())) {
+				int s = gum.getScore() + 1;
+
+				if (s % 8 == 0)
+					gum.attackWave();
+
+				gum.setScore(s);
 				destroy();
 				ast.destroy();
 			}
 		}
 	}
-	
+
 	@Override
 	public Rectangle getRect() {
 		return new Rectangle(x, y, BEAM_SIZE, BEAM_SIZE);

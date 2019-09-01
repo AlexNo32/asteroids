@@ -24,6 +24,11 @@ import au.edu.griffithuni.asteroids.component.IComponent;
 import au.edu.griffithuni.asteroids.component.animation.Explosion;
 import au.edu.griffithuni.asteroids.tools.Tools;
 
+/**
+ * Asteroid
+ * @author Firklaag_ins
+ *
+ */
 public class Asteroid extends Element implements IComponent {
 
 	private Point vector;
@@ -40,12 +45,9 @@ public class Asteroid extends Element implements IComponent {
 		Point[] s = new Point[ASTEROID_VECTOR];
 		Astgenerator(ASTEROID_SIZE, ASTEROID_VECTOR).toArray(s);
 		setShape(s);
-		// genreate vector
+		// Generate vector
 		this.vector = new Point(Tools.randomInt(AST_SPEED_LIMIT, AST_SPEED_MAX),
 				Tools.randomInt(AST_SPEED_LIMIT, AST_SPEED_MAX));
-//		this.vector = new Point(1, 3);
-		// position init
-		// TODO
 	}
 
 	@Override

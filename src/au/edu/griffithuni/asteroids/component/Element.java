@@ -5,11 +5,12 @@ import java.awt.Point;
 import au.edu.griffithuni.asteroids.graphicsengine.GraphicsEngineManager;
 import au.edu.griffithuni.asteroids.tools.ElementsSpecification.Direction;
 
-public abstract class Element implements IComponent{
-	
+public abstract class Element implements IComponent {
+
 	protected GameUiManager gum;
 	protected GraphicsEngineManager gem = GraphicsEngineManager.getInstance();
-	
+
+	/* parameters */
 	protected Point[] shape;
 	protected int prev_x, prev_y;
 	protected int x, y;
@@ -17,7 +18,7 @@ public abstract class Element implements IComponent{
 	protected boolean live = true;
 	protected boolean goUp = false, goDown = false, goLeft = false, goRight = false;
 	protected Direction direction;
-	
+
 	public abstract void move();
 
 	public Point[] getShape() {
@@ -27,5 +28,5 @@ public abstract class Element implements IComponent{
 	public void setShape(Point[] shape) {
 		this.shape = shape;
 	}
-	
+
 }

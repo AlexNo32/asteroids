@@ -28,6 +28,11 @@ import au.edu.griffithuni.asteroids.component.GameUiManager;
 import au.edu.griffithuni.asteroids.component.IComponent;
 import au.edu.griffithuni.asteroids.tools.ElementsSpecification.Direction;
 
+/**
+ * Spaceship
+ * @author Firklaag_ins
+ *
+ */
 public class SpaceShip extends Element implements IComponent {
 
 	private Point headPoint;
@@ -64,7 +69,7 @@ public class SpaceShip extends Element implements IComponent {
 
 	@Override
 	public Rectangle getRect() {
-		return new Rectangle(x, y, BOUNDARY, BOUNDARY);
+		return new Rectangle(x, y, BOUNDARY - 10, BOUNDARY - 10);
 	}
 
 	public void fire() {
@@ -127,12 +132,19 @@ public class SpaceShip extends Element implements IComponent {
 			IComponent ast = asteroids.get(i);
 			if (this.getRect().intersects(ast.getRect())) {
 				ast.destroy();
-				if(HP == 0) {
+				if (HP == 0) {
 					destroy();
-				}else 
+				} else
 					HP--;
 			}
 		}
+	}
+
+	@Override
+	public void destroy() {
+		live = false;
+		gum.gameOver();
+
 	}
 
 	public void keyPressed(KeyEvent e) {
@@ -214,12 +226,6 @@ public class SpaceShip extends Element implements IComponent {
 			direction = STOP;
 		}
 
-	}
-
-	@Override
-	public void destroy() {
-		System.out.println("Destroy!!!");
-		
 	}
 
 }

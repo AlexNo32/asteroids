@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
+import javax.swing.JOptionPane;
 import javax.swing.Timer;
 
 import au.edu.griffithuni.asteroids.component.animation.Explosion;
@@ -24,9 +25,9 @@ public class GameUiManager implements ActionListener {
 	private AsterPanel panel; // game panel
 	private SpaceShip j20; // Player
 
-	private Timer timer;
+	private Timer timer; // {@link javax.swing.Timer}
 	private boolean pause = false;
-	private int score;
+	private int score = 0;
 
 	private GameUiManager() {
 		initGui();
@@ -46,7 +47,7 @@ public class GameUiManager implements ActionListener {
 		// add spaceship
 		j20 = new SpaceShip(this);
 		add(j20);
-		
+
 		attackWave();
 	}
 
@@ -57,6 +58,13 @@ public class GameUiManager implements ActionListener {
 			add(new Asteroid(x, 0, this));
 			x += ASTEROID_SIZE;
 		}
+	}
+
+	/* game over */
+	public void gameOver() {
+		stopTimer();
+		JOptionPane.showConfirmDialog(null, "You Die", "Game message", JOptionPane.DEFAULT_OPTION);
+		System.exit(0);
 	}
 
 	/**
@@ -98,10 +106,6 @@ public class GameUiManager implements ActionListener {
 		panel.repaint();
 	}
 
-	public void gameover() {
-		
-	}
-	
 	/**
 	 * Starts the animation Key: F1
 	 */
@@ -128,6 +132,12 @@ public class GameUiManager implements ActionListener {
 				pause = true;
 			}
 		}
+	}
+
+	private void stopTimer() {
+		if (timer != null)
+			timer.stop();
+		timer = null;
 	}
 
 	public int getScore() {

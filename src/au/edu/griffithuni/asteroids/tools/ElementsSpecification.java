@@ -10,11 +10,10 @@ public class ElementsSpecification {
 	/* Frame size */
 	public static final int FRAME_WIDTH = 1280;
 	public static final int FRANE_HEIGHT = 960; 
-	public static final int GAME_LACTION_WIDTH = 1280;
-	public static final int GAME_LACTION_HEIGHT = 100;
 
 	/* pixel size */
 	public static final int FONT = 1;
+	
 	/* background color */
 	public static final Color COLOR_1 = new Color(0,0,0);
 	public static final Color COLOR_2 = new Color(41,36,33); 
