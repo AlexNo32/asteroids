@@ -25,6 +25,7 @@ public class GameUiManager implements ActionListener {
 
 	private Timer timer;
 	private boolean pause = false;
+	private int score;
 
 	private GameUiManager() {
 		initGui();
@@ -118,6 +119,14 @@ public class GameUiManager implements ActionListener {
 				pause = true;
 			}
 		}
+	}
+
+	public int getScore() {
+		return ++score;
+	}
+
+	public void setScore(int score) {
+		this.score = score;
 	}
 
 	/* Singleton */

@@ -78,10 +78,9 @@ public class Beam extends Element implements IComponent{
 		for(int i = 0; i < asteroids.size(); i++) {
 			IComponent ast = asteroids.get(i);
 			if(this.getRect().intersects(ast.getRect())) {
-				Tools.audioEffect();
-				this.live = false;
-				gum.remove(this);
-				gum.remove(ast);
+				
+				destroy();
+				ast.destroy();
 			}
 		}
 	}
@@ -89,6 +88,12 @@ public class Beam extends Element implements IComponent{
 	@Override
 	public Rectangle getRect() {
 		return new Rectangle(x, y, BEAM_SIZE, BEAM_SIZE);
+	}
+
+	@Override
+	public void destroy() {
+		this.live = false;
+		gum.remove(this);
 	}
 
 }

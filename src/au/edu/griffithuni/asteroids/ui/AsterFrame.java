@@ -5,6 +5,7 @@ import static au.edu.griffithuni.asteroids.tools.ElementsSpecification.FRAME_WID
 import static au.edu.griffithuni.asteroids.tools.ElementsSpecification.FRANE_HEIGHT;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.SwingUtilities;
 
 /**

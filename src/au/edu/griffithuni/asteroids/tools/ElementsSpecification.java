@@ -40,7 +40,7 @@ public class ElementsSpecification {
 	public static final int ASTEROID_VECTOR = 6;
 	public static final int AST_SPEED_LIMIT = 5;
 	public static final int AST_SPEED_MAX = 15;
-	public static final int ASTEROID_NUMBRE = 12;
+	public static final int ASTEROID_NUMBRE = 11;
 	
 	
 	

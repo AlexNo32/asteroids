@@ -58,6 +58,12 @@ public class Asteroid extends Element implements IComponent{
 		
 	}
 	
+	public void destroy() {	
+		live = false;
+		gum.remove(this);
+		Tools.audioEffect();
+	}
+	
 	@Override
 	public Rectangle getRect() {
 		return new Rectangle(x, y, (int)(ASTEROID_SIZE * 0.9), (int)(ASTEROID_SIZE * 0.9));

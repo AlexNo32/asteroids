@@ -11,4 +11,6 @@ public interface IComponent {
 	public Rectangle getRect();
 	
 	public void strike(ArrayList<IComponent> asteroids);
+	
+	public void destroy();
 }

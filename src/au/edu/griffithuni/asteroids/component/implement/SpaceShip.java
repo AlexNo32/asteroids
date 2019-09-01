@@ -29,11 +29,11 @@ import au.edu.griffithuni.asteroids.component.IComponent;
 import au.edu.griffithuni.asteroids.tools.ElementsSpecification.Direction;
 
 public class SpaceShip extends Element implements IComponent {
-	
+
 	private Point headPoint;
 	private Direction headDirection;
 	private int HP;
-	
+
 	public SpaceShip(GameUiManager gum) {
 		this.gum = gum;
 		initial();
@@ -46,7 +46,7 @@ public class SpaceShip extends Element implements IComponent {
 
 		radian = 0f;
 		direction = STOP;
-		HP = 2;
+		HP = 1;
 		setShape(J20_SHAPE);
 		this.headPoint = shape[0];
 		this.headDirection = UP;
@@ -56,7 +56,7 @@ public class SpaceShip extends Element implements IComponent {
 	public void show(Graphics g) {
 		if (live) {
 			move();
-			Point[] scp = Arrays.copyOf(shape, shape.length); 
+			Point[] scp = Arrays.copyOf(shape, shape.length);
 			Point[] nscp = gem.fillPolygon(x, y, radian, scp[0], scp, J20_PAINT, g);
 			headPoint = nscp[0];
 		}
@@ -66,7 +66,7 @@ public class SpaceShip extends Element implements IComponent {
 	public Rectangle getRect() {
 		return new Rectangle(x, y, BOUNDARY, BOUNDARY);
 	}
-	
+
 	public void fire() {
 		gum.add(new Beam(gum, headPoint, headDirection));
 	}
@@ -121,11 +121,20 @@ public class SpaceShip extends Element implements IComponent {
 			y = prev_y;
 		}
 	}
-	
+
 	public void strike(ArrayList<IComponent> asteroids) {
-		
+		for (int i = 0; i < asteroids.size(); i++) {
+			IComponent ast = asteroids.get(i);
+			if (this.getRect().intersects(ast.getRect())) {
+				ast.destroy();
+				if(HP == 0) {
+					destroy();
+				}else 
+					HP--;
+			}
+		}
 	}
-	
+
 	public void keyPressed(KeyEvent e) {
 		switch (e.getKeyCode()) {
 		/* move up */
@@ -205,6 +214,12 @@ public class SpaceShip extends Element implements IComponent {
 			direction = STOP;
 		}
 
+	}
+
+	@Override
+	public void destroy() {
+		System.out.println("Destroy!!!");
+		
 	}
 
 }
