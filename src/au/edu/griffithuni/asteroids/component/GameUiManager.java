@@ -11,6 +11,7 @@ import java.awt.event.KeyEvent;
 
 import javax.swing.Timer;
 
+import au.edu.griffithuni.asteroids.component.animation.Explosion;
 import au.edu.griffithuni.asteroids.component.implement.Asteroid;
 import au.edu.griffithuni.asteroids.component.implement.Beam;
 import au.edu.griffithuni.asteroids.component.implement.SpaceShip;
@@ -70,6 +71,8 @@ public class GameUiManager implements ActionListener {
 			panel.getAsteroidsList().add(comp);
 		else if (comp instanceof Beam)
 			panel.getBeamsList().add(comp);
+		else if (comp instanceof Explosion)
+			panel.getExps().add(comp);
 	}
 
 	/**
@@ -82,6 +85,8 @@ public class GameUiManager implements ActionListener {
 			panel.getAsteroidsList().remove(comp);
 		else if (comp instanceof Beam)
 			panel.getBeamsList().remove(comp);
+		else if (comp instanceof Explosion)
+			panel.getExps().remove(comp);
 	}
 
 	public void gui() {
@@ -93,6 +98,10 @@ public class GameUiManager implements ActionListener {
 		panel.repaint();
 	}
 
+	public void gameover() {
+		
+	}
+	
 	/**
 	 * Starts the animation Key: F1
 	 */

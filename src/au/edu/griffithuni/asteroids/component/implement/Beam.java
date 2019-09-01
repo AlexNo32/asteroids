@@ -15,7 +15,6 @@ import au.edu.griffithuni.asteroids.component.Element;
 import au.edu.griffithuni.asteroids.component.GameUiManager;
 import au.edu.griffithuni.asteroids.component.IComponent;
 import au.edu.griffithuni.asteroids.tools.ElementsSpecification.Direction;
-import au.edu.griffithuni.asteroids.tools.Tools;
 
 public class Beam extends Element implements IComponent{
 	

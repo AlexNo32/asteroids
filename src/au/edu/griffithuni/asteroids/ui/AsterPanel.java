@@ -132,6 +132,14 @@ public class AsterPanel extends JPanel {
 		this.beams = beams;
 	}
 
+	public ArrayList<IComponent> getExps() {
+		return exps;
+	}
+
+	public void setExps(ArrayList<IComponent> exps) {
+		this.exps = exps;
+	}
+
 	private class AsterScoreLabel extends JLabel {
 		/**
 		 * 
@@ -145,7 +153,7 @@ public class AsterPanel extends JPanel {
 			setBounds(1125, 25, 135, 35);
 			setOpaque(true);
 			setFont(font);
-			setBackground(new Color(30, 144, 255));
+			setBackground(new Color(0, 191, 255));
 			setScore(0);
 		}
 		

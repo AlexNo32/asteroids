@@ -21,88 +21,92 @@ import java.util.List;
 import au.edu.griffithuni.asteroids.component.Element;
 import au.edu.griffithuni.asteroids.component.GameUiManager;
 import au.edu.griffithuni.asteroids.component.IComponent;
+import au.edu.griffithuni.asteroids.component.animation.Explosion;
 import au.edu.griffithuni.asteroids.tools.Tools;
 
-public class Asteroid extends Element implements IComponent{
+public class Asteroid extends Element implements IComponent {
 
 	private Point vector;
-	
+
 	public Asteroid(int x, int y, GameUiManager gum) {
 		this.gum = gum;
 		this.x = x;
 		this.y = y;
 		init();
 	}
-	
+
 	private void init() {
 		// generate polygon shape
 		Point[] s = new Point[ASTEROID_VECTOR];
 		Astgenerator(ASTEROID_SIZE, ASTEROID_VECTOR).toArray(s);
 		setShape(s);
 		// genreate vector
-		this.vector = new Point(Tools.randomInt(AST_SPEED_LIMIT, AST_SPEED_MAX), Tools.randomInt(AST_SPEED_LIMIT, AST_SPEED_MAX));
+		this.vector = new Point(Tools.randomInt(AST_SPEED_LIMIT, AST_SPEED_MAX),
+				Tools.randomInt(AST_SPEED_LIMIT, AST_SPEED_MAX));
 //		this.vector = new Point(1, 3);
 		// position init
-		//TODO
+		// TODO
 	}
-	
+
 	@Override
 	public void show(Graphics g) {
-		if(live) {
-			move();
-			
-			
-			Point[] scp = Arrays.copyOf(shape, shape.length); 
-			gem.fillPolygon(x, y, 0, scp[0], scp, Color.RED, g);
+		if (!live) {
+			gum.remove(this);
+			return;
 		}
-		
+
+		Point[] scp = Arrays.copyOf(shape, shape.length);
+		gem.fillPolygon(x, y, 0, scp[0], scp, new Color(218, 165, 32), g);
+		move();
+
 	}
-	
-	public void destroy() {	
+
+	public void destroy() {
 		live = false;
 		gum.remove(this);
 		Tools.audioEffect();
+		gum.add(new Explosion(x + 50, y + 50, gum));
 	}
-	
+
 	@Override
 	public Rectangle getRect() {
-		return new Rectangle(x, y, (int)(ASTEROID_SIZE * 0.9), (int)(ASTEROID_SIZE * 0.9));
+		return new Rectangle(x, y, (int) (ASTEROID_SIZE * 0.9), (int) (ASTEROID_SIZE * 0.9));
 	}
-	
+
 	@Override
 	public void move() {
 		prev_x = x;
 		prev_y = y;
-		
+
 		x += vector.x;
 		y += vector.y;
-		
-		if(x < 0 || x > FRAME_WIDTH - ASTEROID_SIZE)
+
+		if (x < 0 || x > FRAME_WIDTH - ASTEROID_SIZE)
 			vector = mappingAroundY(vector);
-		if(y < 0 || y > FRANE_HEIGHT - ASTEROID_SIZE)
+		if (y < 0 || y > FRANE_HEIGHT - ASTEROID_SIZE)
 			vector = mappingAroundX(vector);
 	}
-	
+
 	private LinkedList<Point> Astgenerator(int size, int vertex) {
 		LinkedList<Point> bak = new LinkedList<Point>();
 		LinkedList<Point> result = new LinkedList<Point>();
-		
-		for(int i = 0; i < vertex; i++)
+
+		for (int i = 0; i < vertex; i++)
 			bak.add(new Point(Tools.randomInt(size), Tools.randomInt(size)));
-		
+
 		Point pa = bak.poll();
 		Point pb = bak.poll();
 		LinkedList<Point> left = new LinkedList<Point>();
 		LinkedList<Point> right = new LinkedList<Point>();
-		
+
 		divide(bak, pa, pb, 1, left, right);
 
 		result.addAll(partition(left, pa, pb));
 		result.addAll(partition(right, pb, pa));
 		return result;
-		
+
 	}
-	
+
 	private LinkedList<Point> partition(LinkedList<Point> part, Point pa, Point pb) {
 		LinkedList<Point> result = new LinkedList<Point>();
 
@@ -140,6 +144,6 @@ public class Asteroid extends Element implements IComponent{
 
 	@Override
 	public void strike(ArrayList<IComponent> asteroids) {
-		
+
 	}
 }

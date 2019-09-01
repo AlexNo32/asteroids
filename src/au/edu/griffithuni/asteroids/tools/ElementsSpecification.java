@@ -53,7 +53,7 @@ public class ElementsSpecification {
 	/* explosion effect */
 	public static final Point[] EXPLOSION = { new Point(0, 0), new Point(15, 8), new Point(30, 0), new Point(23, 15),
 			new Point(30, 30), new Point(15, 23), new Point(0, 30), new Point(8, 15) };
-	public static final Color EXPLOSION_COLOR = new Color(255, 215, 0);
+	public static final Color EXPLOSION_COLOR = new Color(255,0,0);
 
 	
 	
