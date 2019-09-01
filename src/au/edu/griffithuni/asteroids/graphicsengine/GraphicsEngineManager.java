@@ -36,29 +36,27 @@ public class GraphicsEngineManager {
 	
 	/**
 	 * 
-	 * @param x
-	 * @param y
-	 * @param start
-	 * @param end
-	 * @param c
-	 * @param g
+	 * @param start start point for line
+	 * @param end end point for line
+	 * @param c color for line
+	 * @param g {@link java.awt.Graphics}
 	 */
-	public void drawLine(int x, int y, Point start, Point end, Color c, Graphics g) {
-//		Point v = new Point(x, y);
-//		Point dx = Matrix2DTransfer.translation(start, v);
+	public void drawLine(Point start, Point end, Color c, Graphics g) {
+		Line line = new Line(start, end, 1);
+		g.setColor(c);
+		line.draw(g);
 	}
 	
 	/**
 	 * 
-	 * @param x
-	 * @param y
-	 * @param size
-	 * @param c
-	 * @param g
+	 * @param x pixel position x
+	 * @param y pixel position y
+	 * @param size pixel size
+	 * @param c pixel color
+	 * @param g {@link java.awt.Graphics}
 	 */
 	public void drawPixel(int x, int y, int size, Color c, Graphics g) {
 		Point v = new Point(x, y);
-//		Point dp = Matrix2DTransfer.translation(p, v);
 		Pixel pixel = new Pixel(v, size);
 		g.setColor(c);
 		pixel.draw(g);

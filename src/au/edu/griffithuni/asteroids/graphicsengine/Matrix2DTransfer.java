@@ -26,6 +26,8 @@ public class Matrix2DTransfer {
 	 * 
 	 * @param p
 	 * @param theta
+	 * @param refer a point used to define the center of rotation
+	 * @return
 	 */
 	public static Point rotate(Point p, float theta, Point refer) {
 		Point r;
@@ -97,9 +99,4 @@ public class Matrix2DTransfer {
 		return new float[][] {{-1, 0, 0}, {0, 1, 0}, {0, 0, 1}};
 	}
 	
-	public static void main(String[] args) {
-		Point p = new Point(1, 3);
-		System.out.println(mappingAroundX(p));
-	}
-
 }
