@@ -1,6 +1,6 @@
 package au.edu.griffithuni.asteroids.ui;
 
-import static au.edu.griffithuni.asteroids.tools.ElementsSpecification.COLOR_1;
+import static au.edu.griffithuni.asteroids.tools.ElementsSpecification.*;
 import static au.edu.griffithuni.asteroids.tools.ElementsSpecification.COLOR_2;
 
 import java.awt.Color;
@@ -8,14 +8,18 @@ import java.awt.Font;
 import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Point;
 import java.awt.RenderingHints;
 import java.util.ArrayList;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import au.edu.griffithuni.asteroids.component.GameUiManager;
 import au.edu.griffithuni.asteroids.component.IComponent;
 import au.edu.griffithuni.asteroids.component.implement.Beam;
+import au.edu.griffithuni.asteroids.graphicsengine.GraphicsEngineManager;
+import au.edu.griffithuni.asteroids.tools.Tools;
 
 /**
  * Gui canvas
@@ -26,18 +30,36 @@ import au.edu.griffithuni.asteroids.component.implement.Beam;
 public class AsterPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
+	
+	private static final int N_STAR = 100; 
 	/* Spaceship */
 	private IComponent j20;
 	/* asteroids list */
 	private ArrayList<IComponent> asteroids = new ArrayList<IComponent>();
 	/* beam list */
 	private ArrayList<IComponent> beams = new ArrayList<IComponent>();
-
+	/* explosion list */
+	private ArrayList<IComponent> exps = new ArrayList<IComponent>();
+	
 	private AsterScoreLabel scb = new AsterScoreLabel();
 	
-	public AsterPanel() {
+	private GraphicsEngineManager gem = GraphicsEngineManager.getInstance();
+	
+	private ArrayList<Point> backgroundStar = new ArrayList<Point>();
+	
+	private GameUiManager gum;
+	
+	public AsterPanel(GameUiManager gum) {
+		this.gum = gum;
 		setLayout(null);
 		add(scb);
+		
+		for(int i = 0; i < N_STAR; i++) {
+			int x = Tools.randomInt(FRAME_WIDTH);
+			int y = Tools.randomInt((int)(FRANE_HEIGHT * 0.8));
+			backgroundStar.add(new Point(x, y));
+		}
+		
 	}
 	
 	@Override
@@ -45,7 +67,8 @@ public class AsterPanel extends JPanel {
 		super.paintComponent(g);
 
 		background(g);
-
+		stars(g);
+		
 		j20.show(g);
 		j20.strike(asteroids);
 
@@ -59,7 +82,12 @@ public class AsterPanel extends JPanel {
 			bb.show(g);
 			bb.strike(asteroids);
 		}
+		
+		for (int i = 0; i < exps.size(); i++) {
+			exps.get(i).show(g);
+		}
 
+		scb.setScore(gum.getScore());
 	}
 
 	/* set up the background */
@@ -71,6 +99,13 @@ public class AsterPanel extends JPanel {
 		GradientPaint gp = new GradientPaint(0, 0, COLOR_1, 0, h, COLOR_2);
 		g2d.setPaint(gp);
 		g2d.fillRect(0, 0, w, h);
+	}
+	
+	private void stars(Graphics g) {
+		for(int i = 0; i< N_STAR; i++) {
+			Point p = backgroundStar.get(i);
+			gem.drawPixel(p.x, p.y, 4, new Color(0,191,255), g);
+		}
 	}
 
 	public IComponent getJ20() {
@@ -111,7 +146,11 @@ public class AsterPanel extends JPanel {
 			setOpaque(true);
 			setFont(font);
 			setBackground(new Color(30, 144, 255));
-			setText(msg + 0);
+			setScore(0);
+		}
+		
+		public void setScore(int s) {
+			setText(msg + s);
 		}
 
 	}

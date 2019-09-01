@@ -78,7 +78,7 @@ public class Beam extends Element implements IComponent{
 		for(int i = 0; i < asteroids.size(); i++) {
 			IComponent ast = asteroids.get(i);
 			if(this.getRect().intersects(ast.getRect())) {
-				
+				gum.setScore(gum.getScore() + 1);
 				destroy();
 				ast.destroy();
 			}

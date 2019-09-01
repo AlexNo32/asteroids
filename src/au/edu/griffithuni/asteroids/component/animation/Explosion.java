@@ -8,6 +8,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 
@@ -42,6 +43,16 @@ public class Explosion extends Element implements IComponent{
 	@Override
 	public void move() {
 		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void strike(ArrayList<IComponent> asteroids) {
+		
+	}
+
+	@Override
+	public void destroy() {
 		
 	}
 

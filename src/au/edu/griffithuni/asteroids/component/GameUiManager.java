@@ -34,7 +34,7 @@ public class GameUiManager implements ActionListener {
 
 	/* init gui */
 	private void initGui() {
-		panel = new AsterPanel();
+		panel = new AsterPanel(this);
 		gui = new AsterFrame();
 		gui.getContentPane().add(panel);
 		gui.addKeyListener(new GameKeyAdapter());
@@ -122,7 +122,7 @@ public class GameUiManager implements ActionListener {
 	}
 
 	public int getScore() {
-		return ++score;
+		return score;
 	}
 
 	public void setScore(int score) {

@@ -1,7 +1,6 @@
 package au.edu.griffithuni.asteroids.component;
 
 import java.awt.Point;
-import java.awt.Rectangle;
 
 import au.edu.griffithuni.asteroids.graphicsengine.GraphicsEngineManager;
 import au.edu.griffithuni.asteroids.tools.ElementsSpecification.Direction;
